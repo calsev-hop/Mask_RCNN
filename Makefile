@@ -2,6 +2,7 @@
 SHELL := /bin/bash
 VENV := .venv
 SYS_PY := /usr/local/pyenv/versions/3.9.9/bin/python
+LINT_PATH := mask.py
 
 ACTIVATE := source "./$(VENV)/bin/activate"
 PIP := pip install --upgrade
@@ -20,6 +21,10 @@ env-update:
 	$(ACTIVATE) && \
 	$(PIP) -r requirements.txt && \
 	python3 setup.py install
+
+lint:
+	python -m black $(LINT_PATH)
+	python -m isort $(LINT_PATH)
 
 login:
 	ssh ubuntu@$(HOST)
